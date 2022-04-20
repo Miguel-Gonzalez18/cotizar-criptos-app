@@ -66,8 +66,10 @@ function App() {
   },[monedas])
 
   useEffect(()=>{
-    const resultObjeto = localStorage.getItem('result')
-    setResultado(JSON.parse(resultObjeto))
+    if(localStorage.getItem('result')){
+      const resultObjeto = localStorage.getItem('result')
+      setResultado(JSON.parse(resultObjeto))
+    }
   },[localStorage.getItem('result')])
 
   return (
