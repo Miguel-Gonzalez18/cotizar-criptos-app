@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { useEffect } from 'react'
 
 const Result = styled.div`
     font-family: 'lato', sans-serif;
@@ -34,16 +35,43 @@ const Imagen = styled.img`
 `
 const Resultado = ({resultado}) => {
     const {PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE} = resultado
+    useEffect(()=>{
+        const resultJON = {
+            PRICE, 
+            HIGHDAY, 
+            LOWDAY, 
+            CHANGEPCT24HOUR, 
+            IMAGEURL, 
+            LASTUPDATE
+        }
+        localStorage.setItem('result', JSON.stringify(resultJON))
+    },[resultado])
+    
     return (
         <Result>
-            <Imagen src={`https://www.cryptocompare.com/${IMAGEURL}`} alt="Imagen cripto" />
-            <div>
-                <Precio>El precio es de: <span>{PRICE}</span></Precio>
-                <Texto>El precio mas alto del dia: <span>{HIGHDAY}</span></Texto>
-                <Texto>El precio mas bajo del dia: <span>{LOWDAY}</span></Texto>
-                <Texto>Variacion ultimas 24 horas: <span>{CHANGEPCT24HOUR}</span></Texto>
-                <Texto>Ultima actualizacion: <span>{LASTUPDATE}</span></Texto>
-            </div>
+            {localStorage.getItem('result') ? (
+                <>
+                    <Imagen src={`https://www.cryptocompare.com/${IMAGEURL}`} alt="Imagen cripto" />
+                        <div>
+                            <Precio>El precio es de: <span>{PRICE}</span></Precio>
+                            <Texto>El precio mas alto del dia: <span>{HIGHDAY}</span></Texto>
+                            <Texto>El precio mas bajo del dia: <span>{LOWDAY}</span></Texto>
+                            <Texto>Variacion ultimas 24 horas: <span>{CHANGEPCT24HOUR}</span></Texto>
+                            <Texto>Ultima actualizacion: <span>{LASTUPDATE}</span></Texto>
+                        </div>
+                </>
+            ) : (
+                <>
+                    <Imagen src={`https://www.cryptocompare.com/${IMAGEURL}`} alt="Imagen cripto" />
+                    <div>
+                        <Precio>El precio es de: <span>{PRICE}</span></Precio>
+                        <Texto>El precio mas alto del dia: <span>{HIGHDAY}</span></Texto>
+                        <Texto>El precio mas bajo del dia: <span>{LOWDAY}</span></Texto>
+                        <Texto>Variacion ultimas 24 horas: <span>{CHANGEPCT24HOUR}</span></Texto>
+                        <Texto>Ultima actualizacion: <span>{LASTUPDATE}</span></Texto>
+                    </div>
+                </>
+            )}
         </Result>
     )
 }

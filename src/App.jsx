@@ -49,7 +49,7 @@ function App() {
   const [resultado, setResultado] = useState({})
   const [cargando, setCargando] = useState(false)
   useEffect(()=>{
-    if(Object.keys(monedas).length > 0){
+    if(Object.keys(monedas).length > 0 ){
       const cotizarCriptomoneda = async () => {
         setCargando(true)
         const {moneda, criptomoneda} = monedas
@@ -65,6 +65,10 @@ function App() {
     }
   },[monedas])
 
+  useEffect(()=>{
+    const resultObjeto = localStorage.getItem('result')
+    setResultado(JSON.parse(resultObjeto))
+  },[localStorage.getItem('result')])
 
   return (
     <Contenedor>
